@@ -75,9 +75,8 @@ http://localhost:3000
 
 Paste your Google Sheet shared link here:
 
-```text
-https://YOUR-GOOGLE-SHEET-LINK
-```
+https://docs.google.com/spreadsheets/d/1OL9ZgXl4XAHc10eSaz1BBZF-eK-JCLorjjigaoMInj8/edit?usp=sharing
+
 
 ---
 
@@ -85,9 +84,7 @@ https://YOUR-GOOGLE-SHEET-LINK
 
 Paste your Google Sheet shared link here:
 
-```text
-https://YOUR-GOOGLE-SHEET-LINK
-```
+https://docs.google.com/spreadsheets/d/1OL9ZgXl4XAHc10eSaz1BBZF-eK-JCLorjjigaoMInj8/edit?usp=sharing
 
 ---
 
