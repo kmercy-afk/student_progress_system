@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 set -o errexit
 
-export RUBYOPT=-rlogger
 export NODE_OPTIONS=--openssl-legacy-provider
 
 bundle config set frozen false
