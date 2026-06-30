@@ -4,8 +4,7 @@ set -o errexit
 export RUBYOPT=-rlogger
 export NODE_OPTIONS=--openssl-legacy-provider
 
-gem install bundler -v 2.4.22
-bundle update --bundler
+bundle config set frozen false
 bundle install
 yarn install --ignore-engines
 bundle exec rails assets:precompile
