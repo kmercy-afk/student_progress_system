@@ -1,0 +1,20 @@
+<div class="dashboard">
+  <h1>Dashboard</h1>
+  <p>Welcome, <%= current_user.name %>.</p>
+
+  <div class="dashboard-grid">
+    <%= link_to "Students", students_path, class: "dashboard-card" %>
+    <%= link_to "Courses", courses_path, class: "dashboard-card" %>
+    <%= link_to "Assignments", assignments_path, class: "dashboard-card" %>
+    <%= link_to "Progress", progresses_path, class: "dashboard-card" %>
+    <%= link_to "My Account", profile_path, class: "dashboard-card" %>
+
+    <% if admin? %>
+      <%= link_to "Admin Dashboard", admin_dashboard_path, class: "dashboard-card admin-card" %>
+    <% end %>
+  </div>
+
+  <div class="logout-area">
+    <%= button_to "Logout", logout_path, method: :delete, class: "btn btn-outline" %>
+  </div>
+</div>

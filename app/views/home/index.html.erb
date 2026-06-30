@@ -1,0 +1,35 @@
+<div class="landing-page">
+
+  <div class="landing-card">
+
+    <div class="logo">
+      🎓
+    </div>
+
+    <h1>Student Progress Tracking System</h1>
+
+    <p class="welcome">
+      Welcome
+    </p>
+
+    <div class="buttons">
+
+      <%= link_to "Login", login_path, class: "btn btn-primary" %>
+
+      <%= link_to "Create Account", signup_path, class: "btn btn-secondary" %>
+
+      <%= button_to "Guest Login",
+            guest_login_path,
+            method: :post,
+            class: "btn btn-outline" %>
+
+      <%= button_to "Admin Guest Login",
+            admin_guest_login_path,
+            method: :post,
+            class: "btn btn-outline" %>
+
+    </div>
+
+  </div>
+
+</div>
