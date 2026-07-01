@@ -3,21 +3,22 @@ class CoursesController < ApplicationController
   before_action :set_course, only: %i[show edit update destroy]
 
   def index
-    @courses = current_user.courses.order(created_at: :desc)
+    @courses = Course.order(created_at: :desc)
   end
 
   def show
   end
 
   def new
-    @course = current_user.courses.build
+    @course = Course.new
   end
 
   def edit
   end
 
   def create
-    @course = current_user.courses.build(course_params)
+    @course = Course.new(course_params)
+    @course.user = current_user
 
     if @course.save
       redirect_to @course, notice: "Course was successfully created."
@@ -42,7 +43,7 @@ class CoursesController < ApplicationController
   private
 
   def set_course
-    @course = current_user.courses.find(params[:id])
+    @course = Course.find(params[:id])
   end
 
   def course_params

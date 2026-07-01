@@ -21,6 +21,15 @@ RSpec.describe "Progresses", type: :system do
     )
   end
 
+  let!(:new_student) do
+    Student.create!(
+      name: "Jane Doe",
+      email: "jane@example.com",
+      phone_number: "0712345679",
+      user: user
+    )
+  end
+
   let!(:course) do
     Course.create!(
       title: "Mathematics",
@@ -33,8 +42,7 @@ RSpec.describe "Progresses", type: :system do
     Progress.create!(
       student: student,
       course: course,
-      completion_percentage: 50,
-      status: "In Progress"
+      completion_percentage: 50
     )
   end
 
@@ -67,23 +75,25 @@ RSpec.describe "Progresses", type: :system do
     visit progresses_path
     click_link "New Progress"
 
-    select "John Doe", from: "Student"
+    select "Jane Doe", from: "Student"
     select "Mathematics", from: "Course"
     fill_in "Completion Percentage", with: 70
     click_button "Create Progress"
 
     expect(page).to have_content("Progress was successfully created")
     expect(page).to have_content("70%")
+    expect(page).to have_content("In Progress")
   end
 
   it "updates progress" do
     visit edit_progress_path(progress)
 
-    fill_in "Completion Percentage", with: 70
+    fill_in "Completion Percentage", with: 100
     click_button "Update Progress"
 
     expect(page).to have_content("Progress was successfully updated")
-    expect(page).to have_content("70%")
+    expect(page).to have_content("100%")
+    expect(page).to have_content("Completed")
   end
 
   it "deletes progress" do

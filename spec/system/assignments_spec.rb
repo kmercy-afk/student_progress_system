@@ -59,6 +59,7 @@ RSpec.describe "Assignments", type: :system do
     fill_in "Title", with: "Exercise 2"
     fill_in "Description", with: "Complete level two questions"
     select "Mathematics", from: "Course"
+    fill_in "Due date", with: Date.today
     click_button "Create Assignment"
 
     expect(page).to have_content("Assignment was successfully created")

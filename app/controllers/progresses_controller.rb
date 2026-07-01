@@ -3,9 +3,7 @@ class ProgressesController < ApplicationController
   before_action :set_progress, only: %i[show edit update destroy]
 
   def index
-    @progresses = Progress.joins(:student)
-                          .where(students: { user_id: current_user.id })
-                          .order(created_at: :desc)
+  @progresses = Progress.includes(:student, :course).order(created_at: :desc)
   end
 
   def show
@@ -19,24 +17,22 @@ class ProgressesController < ApplicationController
   end
 
   def create
-    @progress = Progress.new(progress_params)
+  @progress = Progress.new(progress_params)
 
-    if own_student_and_course?(@progress) && @progress.save
-      redirect_to @progress, notice: "Progress was successfully created."
-    else
-      flash.now[:alert] = "Please select your own student and course."
-      render :new
-    end
+  if @progress.save
+    redirect_to @progress, notice: "Progress was successfully created."
+  else
+    render :new
   end
+end
 
   def update
-    if own_student_and_course?(@progress) && @progress.update(progress_params)
-      redirect_to @progress, notice: "Progress was successfully updated."
-    else
-      flash.now[:alert] = "Please select your own student and course."
-      render :edit
-    end
+  if @progress.update(progress_params)
+    redirect_to @progress, notice: "Progress was successfully updated."
+  else
+    render :edit
   end
+end
 
   def destroy
     @progress.destroy
@@ -46,9 +42,7 @@ class ProgressesController < ApplicationController
   private
 
   def set_progress
-    @progress = Progress.joins(:student)
-                        .where(students: { user_id: current_user.id })
-                        .find(params[:id])
+  @progress = Progress.find(params[:id])
   end
 
   def progress_params

@@ -4,7 +4,12 @@ class Progress < ApplicationRecord
 
   before_validation :set_status
 
-  validates :student_id, presence: true
+  validates :student_id, presence: true,
+                         uniqueness: {
+                           scope: :course_id,
+                           message: "already has progress for this course"
+                         }
+
   validates :course_id, presence: true
   validates :completion_percentage,
             presence: true,

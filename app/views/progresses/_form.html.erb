@@ -14,7 +14,7 @@
   <div class="field">
     <%= form.label :student_id, "Student" %>
     <%= form.collection_select :student_id,
-                               current_user.students,
+                               Student.all,
                                :id,
                                :name,
                                prompt: "Select Student" %>
@@ -23,7 +23,7 @@
   <div class="field">
     <%= form.label :course_id, "Course" %>
     <%= form.collection_select :course_id,
-                               current_user.courses,
+                               Course.all,
                                :id,
                                :title,
                                prompt: "Select Course" %>

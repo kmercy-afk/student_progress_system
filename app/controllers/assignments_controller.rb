@@ -3,9 +3,7 @@ class AssignmentsController < ApplicationController
   before_action :set_assignment, only: %i[show edit update destroy]
 
   def index
-    @assignments = Assignment.joins(:course)
-                             .where(courses: { user_id: current_user.id })
-                             .order(created_at: :desc)
+  @assignments = Assignment.includes(:course).order(created_at: :desc)
   end
 
   def show
@@ -19,15 +17,14 @@ class AssignmentsController < ApplicationController
   end
 
   def create
-    @assignment = Assignment.new(assignment_params)
+  @assignment = Assignment.new(assignment_params)
 
-    if current_user.courses.include?(@assignment.course) && @assignment.save
-      redirect_to @assignment, notice: "Assignment was successfully created."
-    else
-      flash.now[:alert] = "Please select one of your own courses."
-      render :new
-    end
+  if @assignment.save
+    redirect_to @assignment, notice: "Assignment was successfully created."
+  else
+    render :new
   end
+end
 
   def update
     if @assignment.update(assignment_params)
@@ -45,9 +42,7 @@ class AssignmentsController < ApplicationController
   private
 
   def set_assignment
-    @assignment = Assignment.joins(:course)
-                            .where(courses: { user_id: current_user.id })
-                            .find(params[:id])
+  @assignment = Assignment.find(params[:id])
   end
 
   def assignment_params

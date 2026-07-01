@@ -65,5 +65,23 @@ RSpec.describe Progress, type: :model do
       subject.completion_percentage = 101
       expect(subject).not_to be_valid
     end
+
+    it "is invalid when the same student already has progress for the same course" do
+  Progress.create!(
+    student: student,
+    course: course,
+    completion_percentage: 30,
+    status: "In Progress"
+  )
+
+  duplicate_progress = Progress.new(
+    student: student,
+    course: course,
+    completion_percentage: 60,
+    status: "In Progress"
+  )
+
+  expect(duplicate_progress).not_to be_valid
+   end
   end
 end
