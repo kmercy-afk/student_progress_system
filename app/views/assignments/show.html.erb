@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Title:</strong>
   <%= @assignment.title %>
@@ -17,7 +15,7 @@
 
 <p>
   <strong>Course:</strong>
-  <%= @assignment.course_id %>
+  <%= @assignment.course.title %>
 </p>
 
 <%= link_to 'Edit', edit_assignment_path(@assignment) %> |

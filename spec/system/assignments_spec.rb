@@ -1,9 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Assignments", type: :system do
-  before do
-    driven_by(:rack_test)
-  end
+  before { driven_by(:rack_test) }
 
   let!(:user) do
     User.create!(
@@ -22,6 +20,15 @@ RSpec.describe "Assignments", type: :system do
     )
   end
 
+  let!(:assignment) do
+    Assignment.create!(
+      title: "Exercise 1",
+      description: "Complete basic questions",
+      due_date: Date.today,
+      course: course
+    )
+  end
+
   before do
     visit login_path
     fill_in "Email", with: "mercy@example.com"
@@ -29,27 +36,36 @@ RSpec.describe "Assignments", type: :system do
     click_button "Login"
   end
 
+  it "displays the assignments list" do
+    visit assignments_path
+
+    expect(page).to have_content("Assignments")
+    expect(page).to have_content(assignment.title)
+    expect(page).to have_content(course.title)
+  end
+
+  it "displays an assignment's details" do
+    visit assignment_path(assignment)
+
+    expect(page).to have_content(assignment.title)
+    expect(page).to have_content(assignment.description)
+    expect(page).to have_content(course.title)
+  end
+
   it "creates an assignment" do
     visit assignments_path
     click_link "New Assignment"
 
-    fill_in "Title", with: "Exercise 1"
-    fill_in "Description", with: "Complete basic questions"
+    fill_in "Title", with: "Exercise 2"
+    fill_in "Description", with: "Complete level two questions"
     select "Mathematics", from: "Course"
     click_button "Create Assignment"
 
     expect(page).to have_content("Assignment was successfully created")
-    expect(page).to have_content("Exercise 1")
+    expect(page).to have_content("Exercise 2")
   end
 
   it "updates an assignment" do
-    assignment = Assignment.create!(
-      title: "Old Assignment",
-      description: "Old description",
-      due_date: Date.today,
-      course: course
-    )
-
     visit edit_assignment_path(assignment)
 
     fill_in "Title", with: "Updated Assignment"
@@ -60,17 +76,13 @@ RSpec.describe "Assignments", type: :system do
   end
 
   it "deletes an assignment" do
-    Assignment.create!(
-      title: "Delete Assignment",
-      description: "Delete description",
-      due_date: Date.today,
-      course: course
-    )
-
     visit assignments_path
-    click_link "Destroy"
+
+    within("tr", text: "Exercise 1") do
+      click_link "Destroy"
+    end
 
     expect(page).to have_content("Assignment was successfully deleted")
-    expect(page).not_to have_content("Delete Assignment")
+    expect(page).not_to have_content("Exercise 1")
   end
 end

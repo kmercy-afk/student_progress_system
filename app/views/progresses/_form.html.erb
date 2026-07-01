@@ -37,13 +37,6 @@
                           placeholder: "Enter progress from 0 to 100" %>
   </div>
 
-  <div class="field">
-    <%= form.label :status, "Status" %>
-    <%= form.select :status,
-                    ["Not Started", "In Progress", "Completed"],
-                    prompt: "Select Status" %>
-  </div>
-
   <div class="actions">
     <%= form.submit %>
   </div>

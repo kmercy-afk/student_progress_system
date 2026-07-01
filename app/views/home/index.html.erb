@@ -1,35 +1,57 @@
-<div class="landing-page">
-
-  <div class="landing-card">
-
-    <div class="logo">
-      🎓
-    </div>
-
+<div class="home-page">
+  <section class="home-hero">
     <h1>Student Progress Tracking System</h1>
 
-    <p class="welcome">
-      Welcome
+    <p>
+      A simple web application that helps instructors manage students, courses,
+      assignments, and learning progress in one place.
     </p>
 
-    <div class="buttons">
-
+    <div class="home-actions">
       <%= link_to "Login", login_path, class: "btn btn-primary" %>
-
       <%= link_to "Create Account", signup_path, class: "btn btn-secondary" %>
-
-      <%= button_to "Guest Login",
-            guest_login_path,
-            method: :post,
-            class: "btn btn-outline" %>
-
-      <%= button_to "Admin Guest Login",
-            admin_guest_login_path,
-            method: :post,
-            class: "btn btn-outline" %>
-
+      <%= button_to "Guest Login", guest_login_path, method: :post, class: "btn btn-outline" %>
+      <%= button_to "Admin Guest Login", admin_guest_login_path, method: :post, class: "btn btn-outline" %>
     </div>
+  </section>
 
-  </div>
+  <section class="home-section">
+    <h2>Service Concept</h2>
+    <p>
+      The system is designed for instructors who need an easy way to monitor
+      student learning progress and manage course activities without using many
+      separate tools.
+    </p>
+  </section>
 
+  <section class="home-section">
+    <h2>Main Functions</h2>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h3>Student Management</h3>
+        <p>Register, view, edit, and delete student information.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Course Management</h3>
+        <p>Create and manage courses handled by an instructor.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Assignment Management</h3>
+        <p>Create assignments and connect them to the right course.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Progress Tracking</h3>
+        <p>Record student progress percentages and learning status.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Admin Dashboard</h3>
+        <p>Administrators can view system-wide totals and manage access safely.</p>
+      </div>
+    </div>
+  </section>
 </div>

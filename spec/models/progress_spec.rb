@@ -56,11 +56,6 @@ RSpec.describe Progress, type: :model do
       expect(subject).not_to be_valid
     end
 
-    it "is invalid without status" do
-      subject.status = nil
-      expect(subject).not_to be_valid
-    end
-
     it "is invalid when completion percentage is less than 0" do
       subject.completion_percentage = -1
       expect(subject).not_to be_valid

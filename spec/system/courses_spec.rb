@@ -14,6 +14,14 @@ RSpec.describe "Courses", type: :system do
     )
   end
 
+  let!(:course) do
+    Course.create!(
+      title: "Mathematics",
+      description: "Basic mathematics course",
+      user: user
+    )
+  end
+
   before do
     visit login_path
     fill_in "Email", with: "mercy@example.com"
@@ -21,25 +29,33 @@ RSpec.describe "Courses", type: :system do
     click_button "Login"
   end
 
+  it "displays the courses list" do
+    visit courses_path
+
+    expect(page).to have_content("Courses")
+    expect(page).to have_content(course.title)
+  end
+
+  it "displays a course's details" do
+    visit course_path(course)
+
+    expect(page).to have_content(course.title)
+    expect(page).to have_content(course.description)
+  end
+
   it "creates a course" do
     visit courses_path
     click_link "New Course"
 
-    fill_in "Title", with: "Mathematics"
-    fill_in "Description", with: "Basic mathematics course"
+    fill_in "Title", with: "Science"
+    fill_in "Description", with: "Basic science course"
     click_button "Create Course"
 
     expect(page).to have_content("Course was successfully created")
-    expect(page).to have_content("Mathematics")
+    expect(page).to have_content("Science")
   end
 
   it "updates a course" do
-    course = Course.create!(
-      title: "Old Course",
-      description: "Old description",
-      user: user
-    )
-
     visit edit_course_path(course)
 
     fill_in "Title", with: "Updated Course"
@@ -50,16 +66,13 @@ RSpec.describe "Courses", type: :system do
   end
 
   it "deletes a course" do
-    Course.create!(
-      title: "Delete Course",
-      description: "Delete description",
-      user: user
-    )
-
     visit courses_path
-    click_link "Destroy"
+
+    within("tr", text: "Mathematics") do
+      click_link "Destroy"
+    end
 
     expect(page).to have_content("Course was successfully deleted")
-    expect(page).not_to have_content("Delete Course")
+    expect(page).not_to have_content("Mathematics")
   end
 end

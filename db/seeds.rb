@@ -79,7 +79,6 @@ puts "Creating progress records..."
     student: students[i],
     course: courses[i],
     completion_percentage: (i + 1) * 20,
-    status: ["Not Started", "In Progress", "Completed"].sample
   )
 end
 

@@ -1,18 +1,16 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Student:</strong>
-  <%= @progress.student_id %>
+  <%= @progress.student.name %>
 </p>
 
 <p>
   <strong>Course:</strong>
-  <%= @progress.course_id %>
+  <%= @progress.course.title %>
 </p>
 
 <p>
   <strong>Completion percentage:</strong>
-  <%= @progress.completion_percentage %>
+  <%= "#{@progress.completion_percentage}%" %>
 </p>
 
 <p>
